@@ -20,6 +20,7 @@ function generateRandomPassword(length) {
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
     const randomCharacter = characters[randomIndex];
+    // const randomCharacter = characters.charAt(randomIndex);
     empty += randomCharacter;
   }
   return empty;
@@ -46,8 +47,10 @@ function calculateCircleArea(radius) {
     console.log("Error");
     return null;
   }
-  const pi = Math.PI;
-  const area = pi * radius * radius;
+  // const pi = Math.PI;
+  // const area = pi * radius * radius;
+  // Обчислення площі кола за формулою PI * r^2, де PI - число Пі, а r - радіус.
+  const area = Math.PI * Math.pow(radius, 2);
   return area;
 }
 
@@ -104,6 +107,8 @@ function calculateHypotenuse(a, b) {
     return null;
   }
   const hypotenuse = Math.sqrt(a * a + b * b);
+  // Обчислюємо довжину гіпотенузи за теоремою Піфагора. c=√(a² + b²)
+  // const c = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
   return hypotenuse;
 }
 
@@ -111,47 +116,62 @@ console.log("Завдання 4 ==============================");
 console.log(calculateHypotenuse(3, 4));
 // Виведе довжину гіпотенузи для прямокутного трикутника з катетами довжиною 3 та 4, що дорівнює 5.
 
-// // Завдання 5
-// /**
-//  * Функція `roundObjectValues` заокруглює значення всіх числових властивостей об'єкта.
-//  *
-//  *  obj - Об'єкт для обробки.
-//  *  Поверне: Об'єкт з заокругленими значеннями числових властивостей.
-//  */
-// function roundObjectValues(obj) {
-//   // Перевіряємо, чи аргумент є об'єктом.
-//   // Також перевіряємо, що аргумент не є null.
-//   // Якщо аргумент не є об'єктом або є null, виводимо повідомлення
-//   //"Помилка: аргумент має бути об'єктом".
-//   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
-//   // Отримуємо масив пар [ключ, значення] з об'єкта.
-//   // Перебереємо за допомогою методу map кожну пару [ключ, значення].
-//   // Перевіряємо, чи значення є числом.
-//   // Якщо значення є числом, округлюємо його до найближчого цілого та повертаємо нову пару [ключ, значення].
-//   // Якщо значення не є числом, повертаємо оригінальну пару [ключ, значення].
-//   // Конвертуємо масив пар [ключ, значення] назад в об'єкт за допомогою Object.fromEntries().
-//   // Повертаємо новий об'єкт з заокругленими значеннями числових властивостей.
+// Завдання 5
+/**
+ * Функція `roundObjectValues` заокруглює значення всіх числових властивостей об'єкта.
+ *
+ *  obj - Об'єкт для обробки.
+ *  Поверне: Об'єкт з заокругленими значеннями числових властивостей.
+ */
+function roundObjectValues(obj) {
+  // Перевіряємо, чи аргумент є об'єктом.
+  // Також перевіряємо, що аргумент не є null.
+  // Якщо аргумент не є об'єктом або є null, виводимо повідомлення
+  //"Помилка: аргумент має бути об'єктом".
+  // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
+  // Отримуємо масив пар [ключ, значення] з об'єкта.
+  // Перебереємо за допомогою методу map кожну пару [ключ, значення].
+  // Перевіряємо, чи значення є числом.
+  // Якщо значення є числом, округлюємо його до найближчого цілого та повертаємо нову пару [ключ, значення].
+  // Якщо значення не є числом, повертаємо оригінальну пару [ключ, значення].
+  // Конвертуємо масив пар [ключ, значення] назад в об'єкт за допомогою Object.fromEntries().
+  // Повертаємо новий об'єкт з заокругленими значеннями числових властивостей.
 
-//   if (typeof obj !== "object" || obj === null) {
-//     console.log(`Помилка: аргумент має бути об'єктом.`);
-//   }
-//   return null;
-// }
-// const x = Object.entries(obj).map(([key, value]) => {
-//   if (typeof value === "number") {
-//     return [key, Math.round(value)];
-//   }
-//   return [key, value];
-// });
+  if (typeof obj !== "object" || obj === null) {
+    // Якщо аргумент не є об'єктом або є null, виводимо повідомлення "Помилка: аргумент має бути об'єктом".
+    console.log("Помилка: аргумент має бути об'єктом");
+    // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
+    return null;
+  }
+  // Отримуємо масив пар [ключ, значення] з об'єкта.
+  const entries = Object.entries(obj);
 
-// console.log("Завдання 5 ==============================");
-// const myObject = {
-//   a: 3.5,
-//   b: 2.2,
-//   c: "not a number",
-//   d: 4.9,
-// };
-// console.log(roundObjectValues(myObject));
+  // Перебереємо за допомогою методу map кожну пару [ключ, значення].
+  const roundedEntries = entries.map(([key, value]) => {
+    // Перевіряємо, чи значення є числом.
+    if (typeof value === "number") {
+      // Якщо значення є числом, округлюємо його до найближчого цілого та повертаємо нову пару [ключ, значення].
+      return [key, Math.round(value)];
+    } else {
+      // Якщо значення не є числом, повертаємо оригінальну пару [ключ, значення].
+      return [key, value];
+    }
+  });
+  // Конвертуємо масив пар [ключ, значення] назад в об'єкт за допомогою Object.fromEntries().
+  const roundedObj = Object.fromEntries(roundedEntries);
+
+  // Повертаємо новий об'єкт з заокругленими значеннями числових властивостей.
+  return roundedObj;
+}
+
+console.log("Завдання 5 ==============================");
+const myObject = {
+  a: 3.5,
+  b: 2.2,
+  c: "not a number",
+  d: 4.9,
+};
+console.log(roundObjectValues(myObject));
 // Виведе:
 // { a: 4, b: 2, c: "not a number", d: 5 }
 
@@ -175,8 +195,11 @@ function calculateVolumeCylinder(radius, height) {
     console.log("Error");
     return null;
   }
-  const PI = Math.PI;
-  const volume = Math.round(PI * radius * radius * height);
+  // Обчислюємо об'єм циліндра за формулою V = PI * r^2 * h, де PI - число Пі, r - радіус, h - висота.
+  // Округляємо об'єму до найменшого цілого числа числа що більше.
+  const volume = Math.ceil(Math.PI * Math.pow(radius, 2) * height);
+  // const PI = Math.PI;
+  // const volume = Math.round(PI * radius * radius * height);
   return volume;
 }
 
@@ -237,12 +260,20 @@ function getFractionalPart(num) {
     console.log(`"Помилка: вхідний аргумент має бути числом."`);
     return null;
   }
-  const round = Math.floor(num);
-  const subtract = num - round;
+  // const round = Math.floor(num);
+  // const subtract = num - round;
 
-  const float = Math.fround(subtract);
+  // const float = Math.fround(subtract);
 
-  return float;
+  // return float;
+  // Округляємо відкидуючи дробову частину.
+  const integerPart = Math.trunc(num);
+  // Віднімаємо цілу частину від початкового числа, щоб отримати дробову частину.
+  let fractionalPart = num - integerPart;
+  // Округлюємо дробову частину з формату double до float.
+  fractionalPart = Math.fround(fractionalPart);
+  // Повертаємо дробову частину числа.
+  return fractionalPart;
 }
 
 console.log("Завдання 8 ==============================");
@@ -312,6 +343,12 @@ function estimateInvestment(principal, interestRate, years) {
   const b = Math.round(a);
 
   return b;
+  // // Розраховуємо суму інвестицій за формулою P*(1+rate)^years, де P - початкова сума інвестицій, rate - річна процентна ставка, years - кількість років.
+  // // Округляємо ії до найближчого цілого
+  // const investment = Math.round(principal * Math.pow(1 + interestRate, years));
+
+  // // Повертаємо розраховану суму інвестицій.
+  // return investment;
 }
 
 console.log("Завдання 10 ==============================");
@@ -355,6 +392,20 @@ function isTotalPriceExceedsMaxPrice(products, maxPrice) {
   const newMaxPrice = Math.fround(maxPrice);
 
   return newMaxPrice <= newPrice;
+  //===
+  // Використовуємо метод reduce() для обчислення загальної ціни.
+  // let totalPrice = products.reduce((accumulator, product) => {
+  // // Додаємо ціну продукту до аккумулятора.
+  // return accumulator + product.price;
+  // }, 0);
+
+  // // Конвертуємо totalPrice та maxPrice за допомогою Math.fround.
+  // totalPrice = Math.fround(totalPrice);
+  // maxPrice = Math.fround(maxPrice);
+
+  // // Порівнюємо, чи не перевищує totalPrice maxPrice.
+  // return totalPrice > maxPrice;
+  // }
 }
 
 console.log("Завдання 11 ==============================");
